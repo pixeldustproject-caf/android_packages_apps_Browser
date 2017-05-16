@@ -34,4 +34,5 @@
         <item>https://search.yahoo.com/p={searchTerms}</item>
         <item>https://yandex.com/?q={searchTerms}</item>
     </string-array>
+
 </resources>

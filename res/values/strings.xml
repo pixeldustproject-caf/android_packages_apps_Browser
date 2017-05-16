@@ -111,6 +111,8 @@
     <string name="pref_do_not_track_summary">Send a Do Not Track request to websites you visit</string>
     <!-- Settings: suggestions provider title -->
     <string name="pref_suggestions_provider">Suggestions provider</string>
+    <!-- Settings: default to incognito -->
+    <string name="pref_incognito_policy">Default to incognito</string>
 
     <!-- History: title -->
     <string name="history_title">History</string>
