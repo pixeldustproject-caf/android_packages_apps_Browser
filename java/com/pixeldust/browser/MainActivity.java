@@ -82,6 +82,8 @@ import com.pixeldust.browser.suggestions.SuggestionsAdapter;
 import com.pixeldust.browser.ui.SearchBarController;
 import com.pixeldust.browser.ui.UrlBarController;
 import com.pixeldust.browser.utils.PrefsUtils;
+import com.pixeldust.browser.utils.AdBlocker;
+import com.pixeldust.browser.utils.PrefsUtils;
 import com.pixeldust.browser.utils.UiUtils;
 import com.pixeldust.browser.webview.WebViewCompat;
 import com.pixeldust.browser.webview.WebViewExt;
@@ -229,6 +231,8 @@ public class MainActivity extends WebViewExtActivity implements
         mWebView.init(this, urlBarController, mLoadingProgress, mIncognito);
         mWebView.setDesktopMode(desktopMode);
         mWebView.loadUrl(url == null ? PrefsUtils.getHomePage(this) : url);
+
+        AdBlocker.init(this);
 
         mHasThemeColorSupport = WebViewCompat.isThemeColorSupported(mWebView);
 
