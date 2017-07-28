@@ -33,6 +33,7 @@ public final class PrefsUtils {
     private static final String KEY_SUGGESTION_PROVIDER = "key_suggestion_provider";
     private static final String KEY_INCOGNITO_POLICY = "key_incognito_policy";
     private static final String KEY_ADBLOCKER = "key_adblocker";
+    private static final String KEY_REMOVE_IDENTIFYING_HEADERS = "key_remove_identifying_headers";
 
     public enum SuggestionProviderType {
         BAIDU,
@@ -85,6 +86,11 @@ public final class PrefsUtils {
     public static boolean getDoNotTrack(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getBoolean(KEY_DO_NOT_TRACK, false);
+    }
+
+    public static boolean getRemoveIdentifyingHeaders(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getBoolean(KEY_REMOVE_IDENTIFYING_HEADERS, false);
     }
 
     public static SuggestionProviderType getSuggestionProvider(Context context) {
