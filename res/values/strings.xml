@@ -117,6 +117,10 @@
     <string name="pref_adblocker_title">Adblocker</string>
     <!-- Settings: adblocker summary -->
     <string name="pref_adblocker_summary">Block advertisements while browsing</string>
+    <!-- Settings: reach mode title -->
+    <string name="pref_reach_mode_title">Reach mode</string>
+    <!-- Settings: reach mode summary -->
+    <string name="pref_reach_mode_summary">Relocate interface elements for easier one-hand usage</string>
 
     <!-- History: title -->
     <string name="history_title">History</string>
