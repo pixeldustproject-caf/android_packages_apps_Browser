@@ -113,6 +113,10 @@
     <string name="pref_suggestions_provider">Suggestions provider</string>
     <!-- Settings: default to incognito -->
     <string name="pref_incognito_policy">Default to incognito</string>
+    <!-- Settings: reach mode title -->
+    <string name="pref_reach_mode_title">Reach mode</string>
+    <!-- Settings: reach mode summary -->
+    <string name="pref_reach_mode_summary">Relocate interface elements for easier one-hand usage</string>
 
     <!-- History: title -->
     <string name="history_title">History</string>
