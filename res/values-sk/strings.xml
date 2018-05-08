@@ -106,6 +106,10 @@
   <string name="pref_do_not_track_summary">Odošle webovým stránkam požiadavku, aby vás nesledovali</string>
   <!-- Settings: suggestions provider title -->
   <string name="pref_suggestions_provider">Poskytovateľ návrhov</string>
+  <!-- Settings: reach mode title -->
+  <string name="pref_reach_mode_title">Režim dosahu</string>
+  <!-- Settings: reach mode summary -->
+  <string name="pref_reach_mode_summary">Zmena umiestnenia prvkov rozhrania pre jednoduchšie ovládanie jednou rukou</string>
   <!-- History: title -->
   <string name="history_title">História</string>
   <!-- History: empty status text -->
@@ -120,6 +124,8 @@
   <string name="history_delete_positive">Vymazať</string>
   <!-- History: delete history "working" dialog-->
   <string name="history_deleting_message">Mazanie histórie\u2026</string>
+  <!-- History: entry deleted snackbar message -->
+  <!-- History: entry deleted snackbar button message -->
   <!-- Favorite: title -->
   <string name="favorite_title">Obľúbené</string>
   <!-- Favorite: snackBar message shown when an url is added to favorites -->

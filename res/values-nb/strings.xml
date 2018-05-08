@@ -105,6 +105,8 @@
   <!-- Settings: do not track preference summary -->
   <string name="pref_do_not_track_summary">Send en Ikke-Spor-Meg -forespørsel til alle nettsider du besøker</string>
   <!-- Settings: suggestions provider title -->
+  <!-- Settings: reach mode title -->
+  <!-- Settings: reach mode summary -->
   <!-- History: title -->
   <string name="history_title">Historikk</string>
   <!-- History: empty status text -->
@@ -119,6 +121,8 @@
   <string name="history_delete_positive">Tøm</string>
   <!-- History: delete history "working" dialog-->
   <string name="history_deleting_message">Tømmer historikk\u2026</string>
+  <!-- History: entry deleted snackbar message -->
+  <!-- History: entry deleted snackbar button message -->
   <!-- Favorite: title -->
   <string name="favorite_title">Favoritter</string>
   <!-- Favorite: snackBar message shown when an url is added to favorites -->
@@ -156,4 +160,15 @@
   <!-- Search in page: search hint -->
   <string name="search_bar_hint">Søk</string>
   <!-- SSL Certificate Details dialog -->
+  <string name="ssl_cert_dialog_title">SSL-sertifikatsdetaljer</string>
+  <string name="ssl_cert_dialog_domain">Domene</string>
+  <string name="ssl_cert_dialog_issued_to">Utstedt til</string>
+  <string name="ssl_cert_dialog_issued_by">Utstedt av</string>
+  <string name="ssl_cert_dialog_validity">Gyldighetsperiode</string>
+  <string name="ssl_cert_dialog_common_name">Ordinært navn (CN)</string>
+  <string name="ssl_cert_dialog_organization">Organisasjon (O)</string>
+  <string name="ssl_cert_dialog_organizational_unit">Organisasjonsenhet (UN)</string>
+  <string name="ssl_cert_dialog_issued_on">Utstedt den</string>
+  <string name="ssl_cert_dialog_expires_on">Utløper den</string>
+  <string name="ssl_cert_dialog_dismiss">Avvis</string>
 </resources>

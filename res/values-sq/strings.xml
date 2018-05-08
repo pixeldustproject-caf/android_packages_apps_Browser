@@ -61,6 +61,8 @@
   <!-- Settings: do not track preference title -->
   <!-- Settings: do not track preference summary -->
   <!-- Settings: suggestions provider title -->
+  <!-- Settings: reach mode title -->
+  <!-- Settings: reach mode summary -->
   <!-- History: title -->
   <!-- History: empty status text -->
   <!-- History: date format for items. EEEE = day (Monday), MMMM = month (January), yyyy = year (1970), HH = hour (12), mm = minutes (30) -->
@@ -68,6 +70,8 @@
   <!-- History: delete history dialog warning message -->
   <!-- History: delete history dialog button that erases all the history -->
   <!-- History: delete history "working" dialog-->
+  <!-- History: entry deleted snackbar message -->
+  <!-- History: entry deleted snackbar button message -->
   <!-- Favorite: title -->
   <!-- Favorite: snackBar message shown when an url is added to favorites -->
   <!-- Favorite: empty status text -->
