@@ -106,6 +106,10 @@
   <string name="pref_do_not_track_summary">Websites mitteilen, meine Aktivitäten nicht zu verfolgen</string>
   <!-- Settings: suggestions provider title -->
   <string name="pref_suggestions_provider">Anbieter für Vorschläge</string>
+  <!-- Settings: reach mode title -->
+  <string name="pref_reach_mode_title">Einhandmodus</string>
+  <!-- Settings: reach mode summary -->
+  <string name="pref_reach_mode_summary">Elemente der Benutzeroberfläche für einfache Einhand-Nutzung verschieben</string>
   <!-- History: title -->
   <string name="history_title">Verlauf</string>
   <!-- History: empty status text -->
@@ -120,6 +124,8 @@
   <string name="history_delete_positive">Löschen</string>
   <!-- History: delete history "working" dialog-->
   <string name="history_deleting_message">Verlauf wird gelöscht\u2026</string>
+  <!-- History: entry deleted snackbar message -->
+  <!-- History: entry deleted snackbar button message -->
   <!-- Favorite: title -->
   <string name="favorite_title">Lesezeichen</string>
   <!-- Favorite: snackBar message shown when an url is added to favorites -->

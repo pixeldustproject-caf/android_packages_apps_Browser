@@ -106,6 +106,8 @@
   <string name="pref_do_not_track_summary">Lähetä \"Do Not Track\"-pyyntö vierailemillesi verkkosivuille</string>
   <!-- Settings: suggestions provider title -->
   <string name="pref_suggestions_provider">Ehdotusten tarjoaja</string>
+  <!-- Settings: reach mode title -->
+  <!-- Settings: reach mode summary -->
   <!-- History: title -->
   <string name="history_title">Historia</string>
   <!-- History: empty status text -->
@@ -120,6 +122,8 @@
   <string name="history_delete_positive">Tyhjennä</string>
   <!-- History: delete history "working" dialog-->
   <string name="history_deleting_message">Tyhjennetään historiaa\u2026</string>
+  <!-- History: entry deleted snackbar message -->
+  <!-- History: entry deleted snackbar button message -->
   <!-- Favorite: title -->
   <string name="favorite_title">Kirjanmerkit</string>
   <!-- Favorite: snackBar message shown when an url is added to favorites -->

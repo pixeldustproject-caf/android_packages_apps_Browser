@@ -106,6 +106,10 @@
   <string name="pref_do_not_track_summary">傳送「不追蹤」請求至您瀏覽的網站</string>
   <!-- Settings: suggestions provider title -->
   <string name="pref_suggestions_provider">建議供應商</string>
+  <!-- Settings: reach mode title -->
+  <string name="pref_reach_mode_title">單手模式</string>
+  <!-- Settings: reach mode summary -->
+  <string name="pref_reach_mode_summary">重新定位介面元素以方便單手使用</string>
   <!-- History: title -->
   <string name="history_title">歷史紀錄</string>
   <!-- History: empty status text -->
@@ -120,6 +124,10 @@
   <string name="history_delete_positive">清除</string>
   <!-- History: delete history "working" dialog-->
   <string name="history_deleting_message">正在清除歷史記錄\u2026</string>
+  <!-- History: entry deleted snackbar message -->
+  <string name="history_snackbar_item_deleted">項目已刪除</string>
+  <!-- History: entry deleted snackbar button message -->
+  <string name="history_snackbar_item_deleted_message">復原</string>
   <!-- Favorite: title -->
   <string name="favorite_title">我的最愛</string>
   <!-- Favorite: snackBar message shown when an url is added to favorites -->
