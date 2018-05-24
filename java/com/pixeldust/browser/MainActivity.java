@@ -83,9 +83,11 @@ import com.pixeldust.browser.history.HistoryActivity;
 import com.pixeldust.browser.suggestions.SuggestionsAdapter;
 import com.pixeldust.browser.ui.SearchBarController;
 import com.pixeldust.browser.ui.UrlBarController;
+import com.pixeldust.browser.utils.IntentUtils;
 import com.pixeldust.browser.utils.PrefsUtils;
 import com.pixeldust.browser.utils.AdBlocker;
 import com.pixeldust.browser.utils.PrefsUtils;
+import com.pixeldust.browser.utils.TabUtils;
 import com.pixeldust.browser.utils.UiUtils;
 import com.pixeldust.browser.webview.WebViewCompat;
 import com.pixeldust.browser.webview.WebViewExt;
@@ -100,25 +102,18 @@ public class MainActivity extends WebViewExtActivity implements
          SearchBarController.OnCancelListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String PROVIDER = "com.pixeldust.browser.fileprovider";
-    private static final String EXTRA_INCOGNITO = "extra_incognito";
-    private static final String EXTRA_DESKTOP_MODE = "extra_desktop_mode";
-    public static final String EXTRA_URL = "extra_url";
-    public static final String EXTRA_UI_MODE = "extra_ui_mode";
-    public static final String EVENT_CHANGE_UI_MODE = "intent_change_ui_mode";
     private static final String STATE_KEY_THEME_COLOR = "theme_color";
     private static final int STORAGE_PERM_REQ = 423;
     private static final int LOCATION_PERM_REQ = 424;
     private static final int ALWAYS_DEFAULT_TO_INCOGNITO = 1;
     private static final int EXTERNAL_DEFAULT_TO_INCOGNITO = 2;
 
-    public static final String ACTION_URL_RESOLVED = "com.pixeldust.browser.action.URL_RESOLVED";
-
     private final BroadcastReceiver mUrlResolvedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             Intent resolvedIntent = intent.getParcelableExtra(Intent.EXTRA_INTENT);
             if (TextUtils.equals(getPackageName(), resolvedIntent.getPackage())) {
-                String url = intent.getStringExtra(EXTRA_URL);
+                String url = intent.getStringExtra(IntentUtils.EXTRA_URL);
                 mWebView.loadUrl(url);
             } else {
                 startActivity(resolvedIntent);
@@ -215,16 +210,16 @@ public class MainActivity extends WebViewExtActivity implements
                 mIncognito = !Intent.ACTION_MAIN.equals(intent.getAction());
                 break;
             default:
-                mIncognito = intent.getBooleanExtra(EXTRA_INCOGNITO, false);
+                mIncognito = intent.getBooleanExtra(IntentUtils.EXTRA_INCOGNITO, false);
         }
 
         // Restore from previous instance
         if (savedInstanceState != null) {
-            mIncognito = savedInstanceState.getBoolean(EXTRA_INCOGNITO, mIncognito);
+            mIncognito = savedInstanceState.getBoolean(IntentUtils.EXTRA_INCOGNITO, mIncognito);
             if (url == null || url.isEmpty()) {
-                url = savedInstanceState.getString(EXTRA_URL, null);
+                url = savedInstanceState.getString(IntentUtils.EXTRA_URL, null);
             }
-            desktopMode = savedInstanceState.getBoolean(EXTRA_DESKTOP_MODE, false);
+            desktopMode = savedInstanceState.getBoolean(IntentUtils.EXTRA_DESKTOP_MODE, false);
             mThemeColor = savedInstanceState.getInt(STATE_KEY_THEME_COLOR, 0);
         }
 
@@ -278,7 +273,7 @@ public class MainActivity extends WebViewExtActivity implements
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(mUrlResolvedReceiver, new IntentFilter(ACTION_URL_RESOLVED));
+        registerReceiver(mUrlResolvedReceiver, new IntentFilter(IntentUtils.EVENT_URL_RESOLVED));
     }
 
     @Override
@@ -371,9 +366,9 @@ public class MainActivity extends WebViewExtActivity implements
         super.onSaveInstanceState(outState);
 
         // Preserve webView status
-        outState.putString(EXTRA_URL, mWebView.getUrl());
-        outState.putBoolean(EXTRA_INCOGNITO, mWebView.isIncognito());
-        outState.putBoolean(EXTRA_DESKTOP_MODE, mWebView.isDesktopMode());
+        outState.putString(IntentUtils.EXTRA_URL, mWebView.getUrl());
+        outState.putBoolean(IntentUtils.EXTRA_INCOGNITO, mWebView.isIncognito());
+        outState.putBoolean(IntentUtils.EXTRA_DESKTOP_MODE, mWebView.isDesktopMode());
         outState.putInt(STATE_KEY_THEME_COLOR, mThemeColor);
     }
 
@@ -397,10 +392,10 @@ public class MainActivity extends WebViewExtActivity implements
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case R.id.menu_new:
-                        openInNewTab(null, false);
+                        TabUtils.openInNewTab(this, null, false);
                         break;
                     case R.id.menu_incognito:
-                        openInNewTab(null, true);
+                        TabUtils.openInNewTab(this, null, true);
                         break;
                     case R.id.menu_reload:
                         mWebView.reload();
@@ -462,17 +457,6 @@ public class MainActivity extends WebViewExtActivity implements
         findViewById(R.id.toolbar_search_page).setVisibility(View.GONE);
         findViewById(R.id.toolbar_search_bar).setVisibility(View.VISIBLE);
         mSearchActive = false;
-    }
-
-    private void openInNewTab(String url, boolean incognito) {
-        Intent intent = new Intent(this, MainActivity.class);
-        if (url != null && !url.isEmpty()) {
-            intent.setData(Uri.parse(url));
-        }
-        intent.setAction(Intent.ACTION_MAIN);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        intent.putExtra(EXTRA_INCOGNITO, incognito);
-        startActivity(intent);
     }
 
     private void shareUrl(String url) {
@@ -564,7 +548,7 @@ public class MainActivity extends WebViewExtActivity implements
         View downloadLayout = view.findViewById(R.id.sheet_download);
 
         tabLayout.setOnClickListener(v -> {
-            openInNewTab(url, mIncognito);
+            TabUtils.openInNewTab(this, url, mIncognito);
             sheet.dismiss();
         });
         shareLayout.setOnClickListener(v -> {
@@ -774,7 +758,7 @@ public class MainActivity extends WebViewExtActivity implements
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
 
         if (!UiUtils.isTablet(this)) {
-            manager.registerReceiver(mUiModeChangeReceiver, new IntentFilter(EVENT_CHANGE_UI_MODE));
+            manager.registerReceiver(mUiModeChangeReceiver, new IntentFilter(IntentUtils.EVENT_CHANGE_UI_MODE));
         }
     }
 

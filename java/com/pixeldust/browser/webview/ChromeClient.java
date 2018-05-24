@@ -18,6 +18,7 @@ package com.pixeldust.browser.webview;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Message;
 import android.net.Uri;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
@@ -28,8 +29,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.pixeldust.browser.R;
+import com.pixeldust.browser.MainActivity;
 import com.pixeldust.browser.history.HistoryProvider;
 import com.pixeldust.browser.ui.UrlBarController;
+import com.pixeldust.browser.utils.TabUtils;
 
 class ChromeClient extends WebChromeClientCompat {
     private final WebViewExtActivity mActivity;
@@ -105,5 +108,14 @@ class ChromeClient extends WebChromeClientCompat {
     @Override
     public void onHideCustomView() {
         mActivity.onHideCustomView();
+    }
+
+    @Override
+    public boolean onCreateWindow(WebView view, boolean isDialog,
+                                  boolean isUserGesture, Message resultMsg) {
+        WebView.HitTestResult result = view.getHitTestResult();
+        String url = result.getExtra();
+        TabUtils.openInNewTab(mActivity, url, mIncognito);
+        return true;
     }
 }
