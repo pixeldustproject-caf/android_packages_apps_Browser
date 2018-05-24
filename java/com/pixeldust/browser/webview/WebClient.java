@@ -42,6 +42,8 @@ import com.pixeldust.browser.IntentFilterCompat;
 import com.pixeldust.browser.MainActivity;
 import com.pixeldust.browser.R;
 import com.pixeldust.browser.ui.UrlBarController;
+import com.pixeldust.browser.utils.PrefsUtils;
+import com.pixeldust.browser.utils.IntentUtils;
 import com.pixeldust.browser.utils.UrlUtils;
 
 import java.net.URISyntaxException;
@@ -199,9 +201,9 @@ class WebClient extends WebViewClient {
             return TextUtils.equals(lastIntent.getPackage(), ourPackageName) ? null : lastIntent;
         }
 
-        Intent changeIntent = new Intent(MainActivity.ACTION_URL_RESOLVED)
+        Intent changeIntent = new Intent(IntentUtils.EVENT_URL_RESOLVED)
                 .addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY)
-                .putExtra(MainActivity.EXTRA_URL, url);
+                .putExtra(IntentUtils.EXTRA_URL, url);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, changeIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
 
