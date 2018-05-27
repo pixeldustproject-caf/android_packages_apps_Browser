@@ -75,6 +75,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pixeldust.browser.favorite.FavoriteActivity;
@@ -136,6 +137,7 @@ public class MainActivity extends WebViewExtActivity implements
     private WebViewExt mWebView;
     private ProgressBar mLoadingProgress;
     private SearchBarController mSearchController;
+    private RelativeLayout mToolbarSearchBar;
     private boolean mHasThemeColorSupport;
     private Drawable mLastActionBarDrawable;
     private int mThemeColor;
@@ -164,6 +166,7 @@ public class MainActivity extends WebViewExtActivity implements
         mAppBar = findViewById(R.id.app_bar_layout);
         mWebViewContainer = findViewById(R.id.web_view_container);
         mLoadingProgress = findViewById(R.id.load_progress);
+        mToolbarSearchBar = findViewById(R.id.toolbar_search_bar);
         AutoCompleteTextView autoCompleteTextView = findViewById(R.id.url_bar);
         autoCompleteTextView.setAdapter(new SuggestionsAdapter(this));
         autoCompleteTextView.setOnEditorActionListener((v, actionId, event) -> {
@@ -446,7 +449,7 @@ public class MainActivity extends WebViewExtActivity implements
     }
 
     private void showSearch() {
-        findViewById(R.id.toolbar_search_bar).setVisibility(View.GONE);
+        mToolbarSearchBar.setVisibility(View.GONE);
         findViewById(R.id.toolbar_search_page).setVisibility(View.VISIBLE);
         mSearchController.onShow();
         mSearchActive = true;
@@ -455,7 +458,7 @@ public class MainActivity extends WebViewExtActivity implements
     @Override
     public void onCancelSearch() {
         findViewById(R.id.toolbar_search_page).setVisibility(View.GONE);
-        findViewById(R.id.toolbar_search_bar).setVisibility(View.VISIBLE);
+        mToolbarSearchBar.setVisibility(View.VISIBLE);
         mSearchActive = false;
     }
 
@@ -784,7 +787,10 @@ public class MainActivity extends WebViewExtActivity implements
                 (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
         CoordinatorLayout.LayoutParams containerParams =
                 (CoordinatorLayout.LayoutParams) mWebViewContainer.getLayoutParams();
-
+        RelativeLayout.LayoutParams progressParams =
+                (RelativeLayout.LayoutParams) mLoadingProgress.getLayoutParams();
+        RelativeLayout.LayoutParams searchBarParams =
+                (RelativeLayout.LayoutParams) mToolbarSearchBar.getLayoutParams();
 
         int margin = (int) UiUtils.getDimenAttr(this, R.style.AppTheme,
                 android.R.attr.actionBarSize);
@@ -792,15 +798,27 @@ public class MainActivity extends WebViewExtActivity implements
         if (isReachMode) {
             appBarParams.gravity = Gravity.BOTTOM;
             containerParams.setMargins(0, 0, 0, margin);
+            progressParams.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            progressParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+            searchBarParams.removeRule(RelativeLayout.ABOVE);
+            searchBarParams.addRule(RelativeLayout.BELOW, R.id.load_progress);
         } else {
             appBarParams.gravity = Gravity.TOP;
             containerParams.setMargins(0, margin, 0, 0);
+            progressParams.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
+            progressParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            searchBarParams.removeRule(RelativeLayout.BELOW);
+            searchBarParams.addRule(RelativeLayout.ABOVE, R.id.load_progress);
         }
 
         mAppBar.setLayoutParams(appBarParams);
         mAppBar.invalidate();
         mWebViewContainer.setLayoutParams(containerParams);
         mWebViewContainer.invalidate();
+        mLoadingProgress.setLayoutParams(progressParams);
+        mLoadingProgress.invalidate();
+        mToolbarSearchBar.setLayoutParams(searchBarParams);
+        mToolbarSearchBar.invalidate();
 
         resetSystemUIColor();
 
