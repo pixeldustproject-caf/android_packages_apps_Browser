@@ -121,6 +121,12 @@
     <string name="pref_remove_identifying_headers_title">Remove identifying headers</string>
     <!-- Settings: remove identifying headers preference summary -->
     <string name="pref_remove_identifying_headers_summary">Prevent some personally identifiable information from being sent to websites you visit</string>
+    <!-- Settings: clear traffic title -->
+    <string name="pref_clear_text_traffic_title">Allow unsecure websites</string>
+    <!-- Settings: clear traffic summary on -->
+    <string name="pref_clear_text_traffic_summary_on">Clear text traffic (such as http) is allowed</string>
+    <!-- Settings: clear traffic summary off -->
+    <string name="pref_clear_text_traffic_summary_off">Clear text traffic (such as http) is not allowed</string>
 
     <!-- History: title -->
     <string name="history_title">History</string>
