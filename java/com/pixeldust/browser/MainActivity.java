@@ -204,6 +204,7 @@ public class MainActivity extends WebViewExtActivity implements
         Intent intent = getIntent();
         String url = intent.getDataString();
         boolean desktopMode = false;
+        boolean adblockEnabled = true;
         switch (PrefsUtils.getIncognitoPolicy(this)) {
             case ALWAYS_DEFAULT_TO_INCOGNITO:
                 mIncognito = true;
@@ -222,6 +223,7 @@ public class MainActivity extends WebViewExtActivity implements
                 url = savedInstanceState.getString(IntentUtils.EXTRA_URL, null);
             }
             desktopMode = savedInstanceState.getBoolean(IntentUtils.EXTRA_DESKTOP_MODE, false);
+            adblockEnabled = savedInstanceState.getBoolean(IntentUtils.EXTRA_ADBLOCK_ENABLED, true);
             mThemeColor = savedInstanceState.getInt(STATE_KEY_THEME_COLOR, 0);
         }
 
@@ -247,6 +249,7 @@ public class MainActivity extends WebViewExtActivity implements
         mWebView = findViewById(R.id.web_view);
         mWebView.init(this, urlBarController, mLoadingProgress, mIncognito);
         mWebView.setDesktopMode(desktopMode);
+        mWebView.setAdblockEnabled(adblockEnabled);
         mWebView.loadUrl(url == null ? PrefsUtils.getHomePage(this) : url);
 
         mHasThemeColorSupport = WebViewCompat.isThemeColorSupported(mWebView);
@@ -369,6 +372,7 @@ public class MainActivity extends WebViewExtActivity implements
         outState.putString(IntentUtils.EXTRA_URL, mWebView.getUrl());
         outState.putBoolean(IntentUtils.EXTRA_INCOGNITO, mWebView.isIncognito());
         outState.putBoolean(IntentUtils.EXTRA_DESKTOP_MODE, mWebView.isDesktopMode());
+        outState.putBoolean(IntentUtils.EXTRA_ADBLOCK_ENABLED, mWebView.isAdblockEnabled());
         outState.putInt(STATE_KEY_THEME_COLOR, mThemeColor);
     }
 
@@ -376,6 +380,8 @@ public class MainActivity extends WebViewExtActivity implements
         ImageButton menu = findViewById(R.id.search_menu);
         menu.setOnClickListener(v -> {
             boolean isDesktop = mWebView.isDesktopMode();
+            boolean isAdBlock = mWebView.isAdblockEnabled();
+
             ContextThemeWrapper wrapper = new ContextThemeWrapper(this,
                     R.style.AppTheme_PopupMenuOverlapAnchor);
 
@@ -388,6 +394,10 @@ public class MainActivity extends WebViewExtActivity implements
                     R.string.menu_mobile_mode : R.string.menu_desktop_mode));
             desktopMode.setIcon(ContextCompat.getDrawable(this, isDesktop ?
                     R.drawable.ic_mobile : R.drawable.ic_desktop));
+
+            MenuItem adblockMode = popupMenu.getMenu().findItem(R.id.adblock_mode);
+            adblockMode.setTitle(getString(isAdBlock ?
+                    R.string.menu_adblock_enabled : R.string.menu_adblock_disabled));
 
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
@@ -429,6 +439,12 @@ public class MainActivity extends WebViewExtActivity implements
                                 R.string.menu_desktop_mode : R.string.menu_mobile_mode));
                         desktopMode.setIcon(ContextCompat.getDrawable(this, isDesktop ?
                                 R.drawable.ic_desktop : R.drawable.ic_mobile));
+                        break;
+                    case R.id.adblock_mode:
+                        mWebView.setAdblockEnabled(!mWebView.isAdblockEnabled());
+                        mWebView.reload();
+                        adblockMode.setTitle(getString(isAdBlock ?
+                                R.string.menu_adblock_enabled : R.string.menu_adblock_disabled));
                         break;
                 }
                 return true;

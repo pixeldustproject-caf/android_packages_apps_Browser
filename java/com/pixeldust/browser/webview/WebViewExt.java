@@ -35,7 +35,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class WebViewExt extends WebView {
+import org.adblockplus.libadblockplus.android.webview.AdblockWebView;
+
+public class WebViewExt extends AdblockWebView {
 
     private static final String TAG = "WebViewExt";
 
@@ -67,6 +69,8 @@ public class WebViewExt extends WebView {
 
     public WebViewExt(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
+        setAdblockEnabled(false);
     }
 
     @Override
